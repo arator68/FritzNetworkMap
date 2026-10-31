@@ -1,11 +1,17 @@
 {
   "domain": "fritzbox_network_map",
   "name": "FRITZ!Box Network Map",
-  "version": "0.1.2",
+  "version": "0.5.33",
   "documentation": "https://github.com/arator68/FritzBoxSyncApp",
-  "dependencies": [],
+  "dependencies": [
+    "frontend",
+    "http",
+    "lovelace"
+  ],
   "codeowners": [],
-  "requirements": [],
+  "requirements": [
+    "pysnmp>=7.1.16,<8"
+  ],
   "iot_class": "local_polling",
   "config_flow": true
 }

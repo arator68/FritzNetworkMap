@@ -1,14 +1,13 @@
-from datetime import timedelta
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DEFAULT_SCAN_INTERVAL, DOMAIN, PLATFORMS
+from .const import DOMAIN, PLATFORMS, DEFAULT_SCAN_INTERVAL
+from .coordinator import FritzBoxNetworkMapCoordinator
 from .fritzbox_client import FritzBoxClient
+from .frontend import async_register_card
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
@@ -16,6 +15,8 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    await async_register_card(hass, "0.5.33")
+
     session = async_get_clientsession(hass)
     client = FritzBoxClient(
         session=session,
@@ -24,18 +25,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         password=entry.data[CONF_PASSWORD],
     )
 
-    async def async_update_data():
-        try:
-            return await client.async_get_devices()
-        except Exception as err:
-            raise UpdateFailed(f"FRITZ!Box-Daten konnten nicht abgerufen werden: {err}") from err
-
-    coordinator = DataUpdateCoordinator(
-        hass,
-        logger=__import__("logging").getLogger(__name__),
-        name=DOMAIN,
-        update_method=async_update_data,
-        update_interval=timedelta(seconds=entry.options.get("scan_interval", DEFAULT_SCAN_INTERVAL)),
+    coordinator = FritzBoxNetworkMapCoordinator(
+        hass=hass,
+        client=client,
+        scan_interval=entry.options.get("scan_interval", DEFAULT_SCAN_INTERVAL),
+        switches=entry.options.get("switches", []),
     )
 
     try:
@@ -48,6 +42,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         "client": client,
     }
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    entry.async_on_unload(entry.add_update_listener(async_reload_entry))
     return True
 
 
@@ -56,3 +51,8 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
     return unload_ok
+
+
+async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Reload integration when switch settings change."""
+    await hass.config_entries.async_reload(entry.entry_id)

@@ -1,0 +1,8 @@
+mac,hostname,model,manufacturer,device_type,device_role,notes
+4C:6B:B8:9E:8E:18,Kamera-Haustuer.koch.local,Reolink Video Doorbell WiFi,Reolink,Kamera,WLAN-Client,Manuell zugeordnet
+4C:6B:B8:9E:7D:51,Kamera-Haustuer.koch.local,Reolink Video Doorbell WiFi,Reolink,Kamera,WLAN-Client,Manuell zugeordnet
+0C:EF:15:9B:EC:D0,HeizungCam.koch.local,Tapo C200,Tapo,Kamera,WLAN-Client,Manuell zugeordnet
+D4:D6:DF:0E:1B:54,SG3428.koch.local,TL-SG3428,TP-Link,Switch,Switch,Manuell bestätigt
+66:B5:8D:22:C9:0C,,,AVM,Repeater,,Manuell bestätigt
+BA:FC:7D:AE:37:B9,,,AVM,Repeater,,Manuell bestätigt
+EC:75:0C:C2:68:F7,TL-SG1024DE.koch.local,,,Switch,Switch,Manuell bestätigt; Switch-Uplink wird über MAC-Tabelle des übergeordneten Switches erkannt

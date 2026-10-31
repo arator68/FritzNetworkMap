@@ -1,0 +1,78 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "FRITZ!Box verbinden",
+        "description": "Verbindet die FRITZ!Box für die Geräteliste.",
+        "data": {
+          "host": "Adresse der FRITZ!Box",
+          "username": "Benutzername",
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Anmeldung fehlgeschlagen.",
+      "cannot_connect": "Verbindung fehlgeschlagen."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Konfiguration",
+        "menu_options": {
+          "add_switch": "Switch hinzufügen (SNMPv3)",
+          "remove_switch": "Switch entfernen",
+          "done": "Fertig",
+          "scan_interval": "Abfrageintervall einstellen"
+        }
+      },
+      "add_switch": {
+        "title": "Switch auswählen",
+        "description": "SNMPv3-Zugangsdaten für einen Switch eintragen.",
+        "data": {
+          "name": "Anzeigename",
+          "host": "IP-Adresse oder Hostname",
+          "port": "SNMP-Port",
+          "username": "SNMPv3-Benutzer",
+          "auth_protocol": "Authentifizierungsverfahren",
+          "auth_password": "Authentifizierungspasswort",
+          "priv_protocol": "Verschlüsselungsverfahren",
+          "priv_password": "Verschlüsselungspasswort"
+        }
+      },
+      "remove_switch": {
+        "title": "Switch entfernen",
+        "data": {
+          "switch": "Switch"
+        }
+      },
+      "switch_credentials": {
+        "title": "SNMPv3-Zugangsdaten"
+      },
+      "scan_interval": {
+        "title": "Abfrageintervall",
+        "description": "Intervall in Sekunden, in dem FRITZ!Box und konfigurierte Switches abgefragt werden. Zulässig sind 10 bis 3600 Sekunden.",
+        "data": {
+          "scan_interval": "Abfrageintervall (Sekunden)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "SNMPv3-Verbindung fehlgeschlagen. Prüfe Adresse, Zugangsdaten und SNMP-Konfiguration.",
+      "switch_already_configured": "Dieser Switch ist bereits konfiguriert."
+    },
+    "abort": {
+      "no_switches": "Es sind keine Switches konfiguriert.",
+      "no_switch_candidates": "Keine passenden Switch-Geräte gefunden. Prüfe die Gerätezuordnung in device_overrides.csv.",
+      "switch_not_found": "Der ausgewählte Switch wurde nicht gefunden."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "network_topology": {
+        "name": "Netzwerk-Topologie"
+      }
+    }
+  }
+}

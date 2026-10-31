@@ -1,0 +1,78 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect FRITZ!Box",
+        "description": "Connect the FRITZ!Box for its device list.",
+        "data": {
+          "host": "FRITZ!Box address",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Authentication failed.",
+      "cannot_connect": "Unable to connect."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configuration",
+        "menu_options": {
+          "add_switch": "Add switch (SNMPv3)",
+          "remove_switch": "Remove switch",
+          "done": "Done",
+          "scan_interval": "Configure polling interval"
+        }
+      },
+      "add_switch": {
+        "title": "Switch auswählen",
+        "description": "Enter SNMPv3 credentials for a switch.",
+        "data": {
+          "name": "Display name",
+          "host": "IP address or hostname",
+          "port": "SNMP port",
+          "username": "SNMPv3 user",
+          "auth_protocol": "Authentication protocol",
+          "auth_password": "Authentication password",
+          "priv_protocol": "Privacy protocol",
+          "priv_password": "Privacy password"
+        }
+      },
+      "remove_switch": {
+        "title": "Remove switch",
+        "data": {
+          "switch": "Switch"
+        }
+      },
+      "switch_credentials": {
+        "title": "SNMPv3-Zugangsdaten"
+      },
+      "scan_interval": {
+        "title": "Polling interval",
+        "description": "Interval in seconds for polling the FRITZ!Box and configured switches. Allowed range: 10 to 3600 seconds.",
+        "data": {
+          "scan_interval": "Polling interval (seconds)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "SNMPv3 connection failed. Check address, credentials, and SNMP settings.",
+      "switch_already_configured": "This switch is already configured."
+    },
+    "abort": {
+      "no_switches": "No switches are configured.",
+      "no_switch_candidates": "Keine passenden Switch-Geräte gefunden. Prüfe die Gerätezuordnung in device_overrides.csv.",
+      "switch_not_found": "Der ausgewählte Switch wurde nicht gefunden."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "network_topology": {
+        "name": "Network topology"
+      }
+    }
+  }
+}
